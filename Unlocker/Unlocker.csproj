@@ -2,14 +2,18 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Company>s17179XTY</Company>
     <Copyright>s17179XTY</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Authors>s17179XTY</Authors>
+    <NeutralLanguage>en</NeutralLanguage>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'" />
 
   <ItemGroup>
     <None Include="..\README.md">
