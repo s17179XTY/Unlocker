@@ -12,16 +12,12 @@ internal class Program
     {
         if (IsAdministrator() == true)
         {
-            Console.WriteLine("Enter your username, (expamle:s17179) :");
-            var username = Console.ReadLine();
-            Cmdexecute("reg load HKU\\" + username + " C:\\Users\\" + username + "\\ntuser.dat");
-
             Console.WriteLine("----Enable themes, dir, windows store, background, style----");
             Cmdexecute("cd /d C:\\Windows\\system32&&REG DELETE HKLM\\SOFTWARE\\Policies\\Microsoft\\WindowsStore /v RemoveWindowsStore /f");
             Cmdexecute("cd /d C:\\Windows\\system32&&REG DELETE HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v DisablePersonalDirChange /f");
             Cmdexecute("cd /d C:\\Windows\\system32&&REG DELETE HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v NoThemesTab /f");
             Cmdexecute("cd /d C:\\Windows\\system32&&REG DELETE HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v NoDispBackgroundPage /f");
-            Cmdexecute("cd /d C:\\Windows\\system32&&REG DELETE HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v NoSizeChoice /f"    );
+            Cmdexecute("cd /d C:\\Windows\\system32&&REG DELETE HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v NoSizeChoice /f");
             Cmdexecute("cd /d C:\\Windows\\system32&&REG DELETE HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v NoVisualStyleChoice /f");
 
             Console.WriteLine("----Enable wallpaper and sign options-----");
@@ -47,10 +43,10 @@ internal class Program
             Cmdexecute("cd /d C:\\Windows\\system32&&REG ADD HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetCache /v NoConfigCache /t REG_DWORD /d 0 /f");
             Cmdexecute("cd /d C:\\Windows\\system32&&REG ADD HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetCache /v NoMakeAvailableOffline /t REG_DWORD /d 0 /f");
 
-            Console.WriteLine("----Stop gvsc----");
-            Cmdexecute("cd /d C:\\Windows\\system32&&REG ADD HKLM\\SYSTEM\\CurrentControlSet\\services\\gpsvc /t REG_DWORD /d 4 /f");
-
-            Cmdexecute("reg unload HKU\\" + username);
+            Console.WriteLine("----Stop gvsc, group policy refreah----");
+            Cmdexecute("cd /d C:\\Windows\\system32&&REG DELETE HKLM\\SYSTEM\\CurrentControlSet\\services\\gpsvc /v Start /f");
+            Cmdexecute("cd /d C:\\Windows\\system32&&REG ADD HKLM\\SYSTEM\\CurrentControlSet\\services\\gpsvc /v Decimal /t REG_DWORD /d 4 /f");
+            Cmdexecute("cd /d C:\\Windows\\system32&&REG ADD HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableBkGndGroupPolicy /t REG_DWORD /d 0 /f");
 
             Console.WriteLine("Execution completed, any key to exit");
             Console.ReadKey();
@@ -58,7 +54,7 @@ internal class Program
         }
     }
 
-    public static void Cmdexecute(string command)
+    public static string Cmdexecute(string command)
     {
         // Create a new process to execute the command
         Process process = new Process();
@@ -87,6 +83,7 @@ internal class Program
 
         // Display the output
         Console.WriteLine(output);
+        return output;
     }
 
     public static bool IsAdministrator()
