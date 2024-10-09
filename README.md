@@ -4,4 +4,4 @@ This is an unlocker for editing group policies to unlock features blocked by sch
 `themes`, `dir`, `windows store`, `style, wallpaper`, `sign options`, `xbox game bar`, `contorl panel`, `mouse pointers`, `lockscreen`, `homegroup`,`netcache`.
 
 
-First, open `Open.bat` (administrator nedded), then enter your username and password in the pop-up window when you open "Unlocker .exe".
+First, execute `Open.bat` (Requires administrator permissions) and enter your username, then execute `Unlock.exe` and enter your username and password in the pop-up window
